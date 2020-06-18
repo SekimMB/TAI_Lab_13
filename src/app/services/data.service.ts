@@ -16,9 +16,11 @@ export class DataService {
   getByText(data) {
     return this.http.post(this.url + '/api/posts/search', data);
   }
-
-
   createOrUpdate(post: any) {
     return this.http.post(`${this.url}/api/posts`, post);
   }
+  createPost(data) {
+    return this.http.post(`${this.url}/posts`, { data: JSON.stringify(data) });
+  }
+
 }

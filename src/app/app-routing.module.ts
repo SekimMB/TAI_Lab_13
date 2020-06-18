@@ -9,6 +9,10 @@ import {AddPostComponent} from './components/add-post/add-post.component';
 import {AuthGuard} from './services/auth.guard';
 import {LoginComponent} from './components/login/login.component';
 import {SignupComponent} from './components/signup/signup.component';
+import {DataService} from './services/data.service';
+import {AuthenticationService} from './services/authentication.service';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpIntercepterBasicAuthService} from './services/interceptor-auth.service';
 const routes: Routes = [
   {
     path: '',
@@ -45,6 +49,16 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    DataService,
+    AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpIntercepterBasicAuthService,
+      multi: true
+    },
+  ],
+
 })
 export class AppRoutingModule {}

@@ -1,6 +1,7 @@
+
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -9,34 +10,29 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  credentials = {
-    login: '',
-    password: ''
-  };
+  username = '';
+  password = '';
+  errorMessage = 'Invalid Credentials';
+  invalidLogin = false;
 
-  private logged;
-  private logout;
-
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(private router: Router,
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
   }
-
-  signIn() {
-    return this.authService.authenticate(this.credentials).subscribe((
-      result) => {
-      if (!result) {
-        this.logged = false;
-      } else {
-        this.logout = false;
-        this.credentials = {
-          login: '',
-          password: ''
-        };
-        this.router.navigate(['/']);
-      }
-    });
+  handleBasicAuthLogin() {
+    this.authenticationService.executeAuthenticationService(this.username, this.password)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.router.navigate(['blog']);
+          this.invalidLogin = false;
+        },
+        error => {
+          console.log(error);
+          this.invalidLogin = true;
+        }
+      );
   }
-
 }
