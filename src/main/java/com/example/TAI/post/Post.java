@@ -1,10 +1,19 @@
 package com.example.TAI.post;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Post {
-    private long id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String title;
     private String url;
     private String content;
+
+    public Post(){};
 
     public Post(long id, String title, String url, String content) {
         this.id = id;
@@ -13,7 +22,7 @@ public class Post {
         this.content = content;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -29,7 +38,7 @@ public class Post {
         return content;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
