@@ -1,0 +1,15 @@
+<nav class=" nav justify-content-around">
+  <ul class="nav justify-content-between">
+    <li class="nav-item"><a [routerLink]="['/']">Home  </a></li>
+
+    <li class="nav-item"><a [routerLink]="['/blog']">Blog  </a></li>
+
+    <li class="nav-item"><a [routerLink]="['/contact']">Kontakt  </a></li>
+  </ul>
+<ul class="nav">
+  <a class="nav-link" routerLink="/login" *ngIf="!authService.currentUser">Zaloguj</a>
+  <button class="nav-link" (click)="logOut()" *ngIf="authService.currentUser">Wyloguj</button>
+  <a class="nav-link" routerLink="/signup" *ngIf="!authService.currentUser">Zarejestruj</a>
+</ul>
+
+</nav>
